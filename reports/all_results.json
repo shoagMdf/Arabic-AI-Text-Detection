@@ -1,0 +1,238 @@
+{
+  "dataset": {
+    "total_papers": 8388,
+    "by_polishing": 2851,
+    "from_title": 2963,
+    "from_title_and_content": 2574,
+    "raw_total_samples": 41940,
+    "processed_total_samples": 36524,
+    "preprocessing_dropped": 5416
+  },
+  "modeling": {
+    "best_model_name": "LogisticRegression",
+    "feature_set": "features",
+    "results": {
+      "LogisticRegression": {
+        "val": {
+          "accuracy": 0.966722751916246,
+          "precision": 0.9650622454026083,
+          "recall": 0.966722751916246,
+          "f1": 0.9648359726773216,
+          "roc_auc": 0.9864561802830099,
+          "confusion_matrix": {
+            "true_0_pred_0.0": 4870,
+            "true_0_pred_1.0": 41,
+            "true_1_pred_0.0": 137,
+            "true_1_pred_1.0": 301
+          }
+        },
+        "test": {
+          "accuracy": 0.963762673676305,
+          "precision": 0.9616802107449496,
+          "recall": 0.963762673676305,
+          "f1": 0.9617419683375861,
+          "roc_auc": 0.9834463406715027,
+          "confusion_matrix": {
+            "true_0_pred_0.0": 4845,
+            "true_0_pred_1.0": 50,
+            "true_1_pred_0.0": 143,
+            "true_1_pred_1.0": 288
+          }
+        },
+        "train_time_s": 86.98148775100708
+      },
+      "RandomForest": {
+        "val": {
+          "accuracy": 0.9181155356141335,
+          "precision": 0.8429361367360272,
+          "recall": 0.9181155356141335,
+          "f1": 0.8789211297077992,
+          "roc_auc": 0.9838829800587443,
+          "confusion_matrix": {
+            "true_0_pred_0.0": 4911,
+            "true_1_pred_0.0": 438
+          }
+        },
+        "test": {
+          "accuracy": 0.919076229815997,
+          "precision": 0.8447011162127873,
+          "recall": 0.919076229815997,
+          "f1": 0.8803205449465425,
+          "roc_auc": 0.9736674337419935,
+          "confusion_matrix": {
+            "true_0_pred_0.0": 4895,
+            "true_1_pred_0.0": 431
+          }
+        },
+        "train_time_s": 77.55034875869751
+      },
+      "GBTClassifier": {
+        "val": {
+          "accuracy": 0.9566274069919611,
+          "precision": 0.9534982183403359,
+          "recall": 0.9566274069919611,
+          "f1": 0.9530028944707767,
+          "roc_auc": 0.9843195175493643,
+          "confusion_matrix": {
+            "true_0_pred_0.0": 4862,
+            "true_0_pred_1.0": 49,
+            "true_1_pred_0.0": 183,
+            "true_1_pred_1.0": 255
+          }
+        },
+        "test": {
+          "accuracy": 0.9519339091250469,
+          "precision": 0.9478521521525262,
+          "recall": 0.9519339091250468,
+          "f1": 0.9483381789186213,
+          "roc_auc": 0.975064048024761,
+          "confusion_matrix": {
+            "true_0_pred_0.0": 4827,
+            "true_0_pred_1.0": 68,
+            "true_1_pred_0.0": 188,
+            "true_1_pred_1.0": 243
+          }
+        },
+        "train_time_s": 967.5770225524902
+      }
+    }
+  },
+  "scalability": {
+    "1": {
+      "cores": 1,
+      "elapsed_seconds": 288.58601689338684,
+      "correct_predictions": 5233,
+      "speedup": 1.0,
+      "efficiency": 1.0
+    },
+    "2": {
+      "cores": 2,
+      "elapsed_seconds": 180.3523268699646,
+      "correct_predictions": 5153,
+      "speedup": 1.6001236130513556,
+      "efficiency": 0.8000618065256778
+    },
+    "3": {
+      "cores": 3,
+      "elapsed_seconds": 185.31715559959412,
+      "correct_predictions": 5129,
+      "speedup": 1.5572547288439975,
+      "efficiency": 0.5190849096146658
+    }
+  },
+  "mapreduce": {
+    "unique_words": 42969,
+    "unique_bigrams": 907904,
+    "total_tokens": 3273484,
+    "total_bigrams": 3236960,
+    "type_token_ratio": 0.0131,
+    "hapax_legomena_count": 16343,
+    "hapax_legomena_ratio": 0.3803,
+    "top_words": [
+      [
+        "علي",
+        92204
+      ],
+      [
+        "الي",
+        69668
+      ],
+      [
+        "دراس",
+        56194
+      ],
+      [
+        "بحث",
+        41197
+      ],
+      [
+        "ان",
+        32944
+      ],
+      [
+        "تحليل",
+        24909
+      ],
+      [
+        "خلال",
+        23971
+      ],
+      [
+        "مع",
+        23742
+      ],
+      [
+        "تاثير",
+        18149
+      ],
+      [
+        "دور",
+        16498
+      ]
+    ],
+    "top_bigrams": [
+      [
+        "دراس_الي",
+        14398
+      ],
+      [
+        "بحث_الي",
+        10311
+      ],
+      [
+        "ضوء_علي",
+        9539
+      ],
+      [
+        "تركيز_علي",
+        9419
+      ],
+      [
+        "تهدف_دراس",
+        8936
+      ],
+      [
+        "مع_تركيز",
+        8374
+      ],
+      [
+        "الي_ان",
+        7721
+      ],
+      [
+        "يهدف_بحث",
+        6955
+      ],
+      [
+        "تاثير_علي",
+        5363
+      ],
+      [
+        "ورق_بحثي",
+        4778
+      ]
+    ]
+  },
+  "streaming": {
+    "messages_produced": 99,
+    "batches_processed": 12,
+    "trigger_seconds": 5,
+    "run_seconds": 60,
+    "model_used": "LogisticRegression",
+    "first_batch_latency_ms": 10238,
+    "stable_batch_latency_ms": 4200
+  },
+  "infrastructure": {
+    "OS": "CentOS Stream 9",
+    "VirtualBox": "7.0.26",
+    "Hadoop": "3.3.6",
+    "Spark": "3.5.0",
+    "Kafka": "3.5.0",
+    "Java": "11.0.20.1 LTS",
+    "Python": "3.9",
+    "VM_RAM_GB": 6,
+    "VM_Cores": 3,
+    "HDFS_Capacity_GB": 43.93,
+    "Block_Size_MB": 128
+  }
+}

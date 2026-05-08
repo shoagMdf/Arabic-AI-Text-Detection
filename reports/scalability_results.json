@@ -1,0 +1,23 @@
+{
+  "1": {
+    "cores": 1,
+    "elapsed_seconds": 288.58601689338684,
+    "correct_predictions": 5233,
+    "speedup": 1.0,
+    "efficiency": 1.0
+  },
+  "2": {
+    "cores": 2,
+    "elapsed_seconds": 180.3523268699646,
+    "correct_predictions": 5153,
+    "speedup": 1.6001236130513556,
+    "efficiency": 0.8000618065256778
+  },
+  "3": {
+    "cores": 3,
+    "elapsed_seconds": 185.31715559959412,
+    "correct_predictions": 5129,
+    "speedup": 1.5572547288439975,
+    "efficiency": 0.5190849096146658
+  }
+}
