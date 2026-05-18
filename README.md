@@ -10,7 +10,7 @@
 
 ---
 
-## 📊 Overview
+## Overview
 
 This project implements a complete distributed Big Data pipeline for detecting AI-generated Arabic text using the **KFUPM-JRCAI/arabic-generated-abstracts** dataset (8,388 academic abstracts). The pipeline runs on Apache Hadoop (HDFS) and Apache Spark on CentOS Stream 9.
 
@@ -18,14 +18,14 @@ This project implements a complete distributed Big Data pipeline for detecting A
 
 | Model | Accuracy | F1-Score | ROC-AUC | Train Time |
 |-------|----------|----------|---------|------------|
-| **Logistic Regression** ⭐ | **96.38%** | **96.17%** | **98.34%** | 87.0 s |
+| **Logistic Regression** | **96.38%** | **96.17%** | **98.34%** | 87.0 s |
 | Random Forest | 91.91% | 88.03% | 97.37% | 77.6 s |
 | GBT Classifier | 95.19% | 94.83% | 97.51% | 967.6 s |
 
 ### Pipeline Stages
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -51,7 +51,7 @@ import os
 os.makedirs('data/raw', exist_ok=True)
 ds = load_dataset('KFUPM-JRCAI/arabic-generated-abstracts')
 for split in ds:
-    ds[split].to_pandas().to_parquet(f'data/raw/{split}.parquet')
+ds[split].to_pandas().to_parquet(f'data/raw/{split}.parquet')
 "
 ```
 
@@ -67,14 +67,14 @@ hdfs dfs -put data/raw/*.parquet /user/$USER/arabic_nlp/data/raw/
 ```bash
 # Phase 1+2: Distributed Preprocessing
 spark-submit src/data_preparation.py \
-    --raw-dir hdfs://localhost:9000/user/$USER/arabic_nlp/data/raw \
-    --out-dir hdfs://localhost:9000/user/$USER/arabic_nlp/data/processed \
-    --hdfs
+--raw-dir hdfs://localhost:9000/user/$USER/arabic_nlp/data/raw \
+--out-dir hdfs://localhost:9000/user/$USER/arabic_nlp/data/processed \
+--hdfs
 
 # Phase 3.1+3.2: Feature Engineering
 spark-submit src/feature_engineering.py \
-    --in-dir hdfs://localhost:9000/user/$USER/arabic_nlp/data/processed \
-    --out-dir data/features
+--in-dir hdfs://localhost:9000/user/$USER/arabic_nlp/data/processed \
+--out-dir data/features
 
 # Phase 3.4+3.5: Train 3 classifiers
 spark-submit src/modeling.py
@@ -91,15 +91,15 @@ python3 src/scalability_test.py --cores 1,2,3
 # Streaming (in 2 terminals)
 python3 src/streaming_pipeline.py produce --n-messages 100 &
 spark-submit src/streaming_pipeline.py run \
-    --source files \
-    --source-dir data/stream_input \
-    --output-dir data/stream_output \
-    --run-seconds 60
+--source files \
+--source-dir data/stream_input \
+--output-dir data/stream_output \
+--run-seconds 60
 ```
 
 ---
 
-## 📊 Dataset
+## Dataset
 
 **Source**: [KFUPM-JRCAI/arabic-generated-abstracts](https://huggingface.co/datasets/KFUPM-JRCAI/arabic-generated-abstracts)
 
@@ -112,7 +112,7 @@ spark-submit src/streaming_pipeline.py run \
 
 ---
 
-## 🎯 Implemented Features
+## Implemented Features
 
 ### Stylometric Features (3 of 109 from project spec)
 - Feature #12 — `short_words_ratio` (≤ 3 chars / total words)
@@ -129,7 +129,7 @@ spark-submit src/streaming_pipeline.py run \
 
 ---
 
-## 📈 Performance
+## Performance
 
 ### Scalability (Amdahl's Law in action)
 
@@ -155,14 +155,14 @@ spark-submit src/streaming_pipeline.py run \
 
 ---
 
-## 📝 License
+## License
 
 Academic project — MSBDA-801 — Taibah University.
 Code may be used for educational purposes.
 
 ---
 
-## 👤 Author
+## Author
 
 **shoagkhaleel** — Master's student in Big Data Analytics, Taibah University.
 
