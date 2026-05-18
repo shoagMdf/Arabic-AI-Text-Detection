@@ -9,14 +9,9 @@ reports/*.pptx
 # ============================================================
 # Data files (too large for Git, regenerate from HuggingFace)
 # ============================================================
-data/raw/*.parquet
-data/processed/
 data/features/
-data/stream_input/
-data/stream_output/
 data/stream_checkpoint/
 data/mapreduce_input.jsonl
-data/mapreduce_output.tsv
 
 # ============================================================
 # ============================================================

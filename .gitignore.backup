@@ -1,0 +1,46 @@
+# ============================================================
+# Final deliverables (will be added later)
+# ============================================================
+reports/Final_Project_Report.docx
+reports/Final_Presentation.pptx
+reports/*.docx
+reports/*.pptx
+
+# ============================================================
+# Data files (too large for Git, regenerate from HuggingFace)
+# ============================================================
+data/raw/*.parquet
+data/processed/
+data/features/
+data/stream_input/
+data/stream_output/
+data/stream_checkpoint/
+data/mapreduce_input.jsonl
+data/mapreduce_output.tsv
+
+# ============================================================
+# ============================================================
+# Spark/Hadoop temp files
+# ============================================================
+spark-warehouse/
+metastore_db/
+derby.log
+*.log
+*.crc
+
+# ============================================================
+# Python
+# ============================================================
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# ============================================================
+# IDE
+# ============================================================
+.vscode/
+.idea/
+*.swp
+.DS_Store
