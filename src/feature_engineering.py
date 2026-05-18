@@ -137,6 +137,45 @@ def _foreign_letters_ratio(text):
     return float(foreign) / float(total)
 
 
+
+# ----- Feature #75: active_voice_sentences_count ---------------------------
+def _active_voice_count(text):
+    """
+    Count sentences likely in ACTIVE voice (Arabic).
+    Heuristic: passive markers in Arabic include verbs starting with
+    Hamza+Damma (u0623 u064F) followed by a letter, or 'ist-' with shadda.
+    We count sentences that do NOT contain typical passive verb prefixes.
+    """
+    if text is None or not isinstance(text, str) or not text.strip():
+        return 0
+    sentences = re.split(r"[.!\?؟؛]+", str(text))
+    active = 0
+    passive_re = re.compile(r"\bأُ[\u064B-\u065F]?[ا-ي]|\bاست[\u0651]")
+    for sent in sentences:
+        sent = sent.strip()
+        if len(sent) > 3 and not passive_re.search(sent):
+            active += 1
+    return active
+
+
+# ----- Feature #96: redundancy_score ---------------------------------------
+def _redundancy_score(text):
+    """
+    Measure phrase-level redundancy via bigram repetition.
+    Score = 1 - (unique_bigrams / total_bigrams)
+    Range: [0.0, 1.0]   Higher = more repetitive text.
+    """
+    if text is None or not isinstance(text, str) or not text.strip():
+        return 0.0
+    words = str(text).split()
+    if len(words) < 2:
+        return 0.0
+    bigrams = [(words[i], words[i + 1]) for i in range(len(words) - 1)]
+    if len(bigrams) == 0:
+        return 0.0
+    return 1.0 - (len(set(bigrams)) / float(len(bigrams)))
+
+
 # Register UDFs
 short_words_ratio_udf = F.udf(_short_words_ratio, FloatType())
 total_words_udf       = F.udf(_total_words, IntegerType())
@@ -145,6 +184,8 @@ total_lines_udf       = F.udf(_total_physical_lines, IntegerType())
 total_sentences_udf   = F.udf(_total_sentences, IntegerType())
 foreign_count_udf     = F.udf(_foreign_letters_count, IntegerType())
 foreign_ratio_udf     = F.udf(_foreign_letters_ratio, FloatType())
+active_voice_udf      = F.udf(_active_voice_count, IntegerType())
+redundancy_udf        = F.udf(_redundancy_score, FloatType())
 
 
 # ===========================================================================
@@ -165,10 +206,12 @@ def add_stylometric_features(df, raw_text_col="text", clean_text_col="cleaned_te
     print("\n" + "=" * 80)
     print("PHASE 3 - TASK 3.1: STYLOMETRIC FEATURE EXTRACTION (DISTRIBUTED)")
     print("=" * 80)
-    print("\nAssigned Features (3 of 109):")
+    print("\nAssigned Features (5 of 109):")
     print("  #12 Number of short words / N")
     print("  #33 Total number of lines (L)")
     print("  #54 Number of foreign letters")
+    print("  #75 Number of Active voice sentences")
+    print("  #96 Redundancy Score")
 
     # Feature #12 — short words ratio
     df = (
@@ -189,12 +232,20 @@ def add_stylometric_features(df, raw_text_col="text", clean_text_col="cleaned_te
           .withColumn("foreign_letters_ratio", foreign_ratio_udf(F.col(raw_text_col)))
     )
 
+    # Feature #75 — active voice sentences (use raw text — punctuation matters)
+    df = df.withColumn("active_voice_count", active_voice_udf(F.col(raw_text_col)))
+
+    # Feature #96 — redundancy score (use cleaned_text — measure repetition)
+    df = df.withColumn("redundancy_score", redundancy_udf(F.col(clean_text_col)))
+
     print("\n[FEAT] Summary statistics for stylometric features:")
     df.select(
         "short_words_ratio",
         "total_physical_lines",
         "foreign_letters_count",
-        "foreign_letters_ratio"
+        "foreign_letters_ratio",
+        "active_voice_count",
+        "redundancy_score"
     ).describe().show()
 
     print("[FEAT] Mean values by class (1=human, 0=AI):")
@@ -203,6 +254,8 @@ def add_stylometric_features(df, raw_text_col="text", clean_text_col="cleaned_te
         F.round(F.mean("total_physical_lines"),  2).alias("mean_lines"),
         F.round(F.mean("foreign_letters_count"), 2).alias("mean_foreign_cnt"),
         F.round(F.mean("foreign_letters_ratio"), 4).alias("mean_foreign_ratio"),
+        F.round(F.mean("active_voice_count"),    2).alias("mean_active_voice"),
+        F.round(F.mean("redundancy_score"),      4).alias("mean_redundancy"),
         F.count("*").alias("n_samples"),
     ).show()
 
@@ -374,6 +427,8 @@ def main():
             "total_physical_lines",
             "foreign_letters_count",
             "foreign_letters_ratio",
+        "active_voice_count",
+        "redundancy_score",
             "total_words",
             "total_sentences",
         ]
