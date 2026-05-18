@@ -19,13 +19,6 @@ data/mapreduce_input.jsonl
 data/mapreduce_output.tsv
 
 # ============================================================
-# Trained models (too large, can be regenerated)
-# ============================================================
-models/LogisticRegression/
-models/RandomForest/
-models/GBTClassifier/
-models/best_model/
-
 # ============================================================
 # Spark/Hadoop temp files
 # ============================================================

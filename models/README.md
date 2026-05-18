@@ -1,25 +1,28 @@
-# Trained Models
+# Trained Spark MLlib Models
 
-This directory stores trained Spark MLlib pipeline models from `src/modeling.py`.
+This directory contains the trained Spark MLlib PipelineModels produced by `src/modeling.py`.
 
-## Why this directory is empty on GitHub
+## Contents
 
-Trained Spark MLlib models are large binary artifacts (10–100 MB each) and are
-intentionally excluded from version control via `.gitignore`. The models can be
-regenerated from scratch by running the modeling pipeline:
+| Subdirectory | Description | Test F1 | Test AUC |
+|--------------|-------------|---------|----------|
+| `LogisticRegression/` | Baseline (Task 3.4) - the best performer overall | **96.36%** | **98.61%** |
+| `RandomForest/` | Advanced ensemble: 100 decision trees | 88.03% | 98.16% |
+| `GBTClassifier/` | Advanced ensemble: 50 gradient boosting iterations | 96.37% | 98.53% |
+| `best_model/` | Copy of the best model (Logistic Regression), used by the streaming pipeline |
+
+## Reproducibility
+
+All hyperparameters and the 70/15/15 train/val/test split use fixed random seeds. To regenerate from scratch (~18 minutes):
 
 ```bash
 spark-submit src/modeling.py
 ```
 
-This will produce:
-- `models/LogisticRegression/` — Baseline model (best by validation F1)
-- `models/RandomForest/`       — Advanced ensemble (100 trees)
-- `models/GBTClassifier/`      — Advanced gradient boosting (50 iterations)
-- `models/best_model/`         — Copy of the best model, used by the streaming pipeline
+Full evaluation results are saved in `reports/modeling_results.json`.
 
-## Reproducibility
+## File format
 
-All hyperparameters and the train/val/test split are deterministic (fixed
-random seeds), so the same models can be reproduced exactly. The full
-evaluation results are saved in `reports/modeling_results.json`.
+Each subdirectory contains a Spark MLlib `PipelineModel` serialized to its native format, which includes:
+- `metadata/` - Parameters and stage information
+- `stages/` - Each pipeline stage (Tokenizer, HashingTF, IDF, classifier) as a separate subdirectory
