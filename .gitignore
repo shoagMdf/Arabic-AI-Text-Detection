@@ -1,42 +1,112 @@
 # ============================================================
-# Final deliverables (will be added later)
+# Arabic NLP Big Data Project — .gitignore
 # ============================================================
-reports/Final_Project_Report.docx
-reports/Final_Presentation.pptx
-reports/*.docx
-reports/*.pptx
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.coverage
+
+# === Virtual Environments ===
+venv/
+env/
+ENV/
+.venv/
+.env
+
+# === IDE / Editor ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# === Jupyter / Zeppelin local installs ===
+.ipynb_checkpoints/
+zeppelin/
+.zeppelin/
 
 # ============================================================
-# Data files (too large for Git, regenerate from HuggingFace)
-# ============================================================
-data/features/
-data/stream_checkpoint/
-data/mapreduce_input.jsonl
-
-# ============================================================
-# ============================================================
-# Spark/Hadoop temp files
+# Spark / Hadoop runtime
 # ============================================================
 spark-warehouse/
 metastore_db/
 derby.log
 *.log
 *.crc
+.spark_history/
 
 # ============================================================
-# Python
+# Large Data Files (regenerable from HuggingFace dataset)
 # ============================================================
-__pycache__/
-*.pyc
-*.pyo
-.venv/
-venv/
+
+# Raw data (download via: load_dataset('KFUPM-JRCAI/...'))
+data/raw/*.parquet
+data/raw/*.json
+data/raw/*.csv
+
+# Processed data (regenerable from raw via data_preparation.py)
+data/processed/*.parquet
+data/processed/_SUCCESS
+data/processed/*.crc
+
+# Features (regenerable from processed via feature_engineering.py)
+data/features/
+
+# Streaming temp files
+data/stream_input/
+data/stream_output/
+data/stream_checkpoint/
+
+# MapReduce temp files
+data/mapreduce_input.jsonl
+data/mapreduce_output.tsv
 
 # ============================================================
-# IDE
+# Trained Models (large binaries, regenerable from modeling.py)
 # ============================================================
-.vscode/
-.idea/
-*.swp
-.DS_Store
+models/*/
+!models/.gitkeep
+*.model
+*.pkl
+*.joblib
+
+# ============================================================
+# Logs & Temp Files
+# ============================================================
+logs/
+*.log
+*.out
+*.tmp
+*.temp
+.cache/
+tmp/
+
+# ============================================================
+# Backup files
+# ============================================================
+*.bak
 *.backup
+*_backup
+*.orig
+.gitignore.backup
+
+# ============================================================
+# Keep these (override exclusions)
+# ============================================================
+!data/.gitkeep
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!models/.gitkeep
+!reports/figures/.gitkeep
+!reports/figures/eda/.gitkeep
+!reports/figures/zeppelin/.gitkeep

@@ -1,0 +1,11 @@
+{
+  "total_samples": 36524,
+  "human_count": 2992,
+  "ai_count": 33532,
+  "ttr": {
+    "human_avg_ttr": 0.8000875443299824,
+    "ai_avg_ttr": 0.7625283316471243,
+    "human_corp_ttr": 0.7914527524188125,
+    "ai_corp_ttr": 0.7481724647089094
+  }
+}
