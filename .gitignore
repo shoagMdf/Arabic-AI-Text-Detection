@@ -72,13 +72,6 @@ data/mapreduce_input.jsonl
 data/mapreduce_output.tsv
 
 # ============================================================
-# Trained Models (large binaries, regenerable from modeling.py)
-# ============================================================
-models/*/
-!models/.gitkeep
-*.model
-*.pkl
-*.joblib
 
 # ============================================================
 # Logs & Temp Files
