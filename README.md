@@ -167,6 +167,15 @@ Detailed per-class precision and recall:
 | Random Forest   | 91.9%        | 100%      | —               | 0.0%         |
 | GBT             | 97.2%        | 99.1%     | 86.7%           | 68.0%        |
 
+> **Note on Random Forest**: Human Precision is undefined (—) because the model
+> predicted "AI" for all 5,326 test samples — a textbook majority-class collapse.
+> Mathematically, Precision = TP / (TP + FP) = 0 / (0 + 0) is undefined. This
+> demonstrates why accuracy alone (91.91%) is misleading on imbalanced datasets:
+> a trivial "always predict AI" baseline achieves the same accuracy without any
+> real classification capability. See the Discussion section of the report for
+> the root cause analysis (bootstrap sampling + Gini-on-imbalanced-data +
+> majority voting).
+
 - Computed per-class F1 (LR): **F1(AI) = 98.1%**, **F1(Human) = 76.2%**
 - Aggregate F1 (sample-weighted) = 96.36% ; unweighted macro-F1 = 87.2%
 - Random Forest collapses on the minority class (predicts AI for every sample)
@@ -193,6 +202,17 @@ Detailed per-class precision and recall:
 | **Hapax %**         | 38.03%      | 52.94%   | 31.57%     | 0.60× (1.68× ↓) |
 | Total bigrams       | 3,236,960   | 297,362  | 2,939,598  | 9.9×            |
 | Unique bigrams      | 907,904     | 214,582  | 810,788    | 3.78×           |
+
+> **Note on Combined TTR**: The "Combined" column for TTR is intentionally left
+> blank ("—") rather than reporting a single value. Two reasons: (1) the
+> per-document TTR average is not meaningful when computed across two classes
+> with vastly different document counts (2,992 vs 33,532); and (2) the
+> corpus-level TTR for the combined corpus (mathematically 42,969 / 3,273,484 =
+> 0.0131) is heavily distorted by sample-size bias (Heaps' law) and is
+> dominated by AI's 91% token share — it does not reflect either class
+> faithfully. The honest comparison is Human vs AI directly, where the
+> consistent −4.7% (per-doc) and −5.5% (corpus) gap reveals AI's lower lexical
+> diversity.
 
 ### Top AI Fingerprint Bigrams
 
