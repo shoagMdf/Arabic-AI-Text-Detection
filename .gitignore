@@ -1,7 +1,3 @@
-# ============================================================
-# Arabic NLP Big Data Project — .gitignore
-# ============================================================
-
 # === Python ===
 __pycache__/
 *.py[cod]
@@ -35,71 +31,25 @@ Thumbs.db
 zeppelin/
 .zeppelin/
 
-# ============================================================
-# Spark / Hadoop runtime
-# ============================================================
+# === Spark / Hadoop runtime ===
 spark-warehouse/
 metastore_db/
 derby.log
 *.log
-*.crc
 .spark_history/
 
-# ============================================================
-# Large Data Files (regenerable from HuggingFace dataset)
-# ============================================================
-
-# Raw data (download via: load_dataset('KFUPM-JRCAI/...'))
-data/raw/*.parquet
-data/raw/*.json
-data/raw/*.csv
-
-# Processed data (regenerable from raw via data_preparation.py)
-data/processed/*.parquet
-data/processed/_SUCCESS
-data/processed/*.crc
-
-# Features (regenerable from processed via feature_engineering.py)
-data/features/
-
-# Streaming temp files
-data/stream_input/
-data/stream_output/
-data/stream_checkpoint/
-
-# MapReduce temp files
-data/mapreduce_input.jsonl
-data/mapreduce_output.tsv
-
-# ============================================================
-
-# ============================================================
-# Logs & Temp Files
-# ============================================================
+# === Logs & Temp ===
 logs/
-*.log
 *.out
 *.tmp
 *.temp
 .cache/
 tmp/
 
-# ============================================================
-# Backup files
-# ============================================================
+# === Backup files ===
 *.bak
 *.backup
 *_backup
 *.orig
 .gitignore.backup
-
-# ============================================================
-# Keep these (override exclusions)
-# ============================================================
-!data/.gitkeep
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-!models/.gitkeep
-!reports/figures/.gitkeep
-!reports/figures/eda/.gitkeep
-!reports/figures/zeppelin/.gitkeep
+.gitignore.bak*
